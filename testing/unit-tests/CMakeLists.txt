@@ -28,6 +28,7 @@ ENDMACRO()
 SET(cal_tests
     byteswap_test
     dynload_test
+    time_test
 )
 
 FOREACH(test ${cal_tests})
