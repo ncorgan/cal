@@ -22,23 +22,28 @@ static void dynload_test() {
     const char* libname = "libdynlib.so";
     int flags = RTLD_LAZY;
 #endif
+    void* library_handle = NULL;
+    add_nums_fcn_t add_nums = NULL;
+    print_msg_fcn_t print_msg = NULL;
+    greater_than_five_fcn_t greater_than_five = NULL;
+    int result = 0;
 
-    void* library_handle = cal_loadlibrary(libname, flags);
+    library_handle = cal_loadlibrary(libname, flags);
     TEST_ASSERT_NOT_NULL(library_handle);
 
-    add_nums_fcn_t add_nums = cal_getsymbol(library_handle, "add_nums");
+    add_nums = cal_getsymbol(library_handle, "add_nums");
     TEST_ASSERT_NOT_NULL(add_nums);
     TEST_ASSERT_EQUAL(5, add_nums(2, 3));
 
-    print_msg_fcn_t print_msg = cal_getsymbol(library_handle, "print_msg");
+    print_msg = cal_getsymbol(library_handle, "print_msg");
     TEST_ASSERT_NOT_NULL(print_msg);
     print_msg("This is a message");
 
-    greater_than_five_fcn_t greater_than_five = cal_getsymbol(library_handle, "greater_than_five");
+    greater_than_five = cal_getsymbol(library_handle, "greater_than_five");
     TEST_ASSERT_NOT_NULL(greater_than_five);
     TEST_ASSERT_FALSE(greater_than_five(4));
 
-    int result = cal_freelibrary(library_handle);
+    result = cal_freelibrary(library_handle);
     TEST_ASSERT_EQUAL(0, result);
 }
 
