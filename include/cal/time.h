@@ -15,6 +15,7 @@ extern "C" {
 
 #if defined(CAL_PLATFORM_MACOS)
 #include <mach/mach_time.h>
+#include <unistd.h>
 
 static CAL_INLINE unsigned long long cal_highres_timestamp() {
     mach_timebase_info_data_t timebase_info;
@@ -22,6 +23,12 @@ static CAL_INLINE unsigned long long cal_highres_timestamp() {
 
     // Convert nanoseconds to microseconds
     return (mach_absolute_time() * (timebase_info.numer / timebase_info.denom)) / 1000;
+}
+
+static CAL_INLINE void cal_usleep(
+    unsigned long long sleep_time
+) {
+    usleep(sleep_time);
 }
 
 #elif defined(CAL_PLATFORM_WIN32) || defined(CAL_PLATFORM_MINGW)
@@ -39,8 +46,16 @@ static CAL_INLINE unsigned long long cal_highres_timestamp() {
     return *((unsigned long long*)&filetime) / 10;
 }
 
+static CAL_INLINE void cal_usleep(
+    unsigned long long sleep_time
+) {
+    unsigned long long timestamp1 = cal_highres_timestamp();
+    while((cal_highres_timestamp() - timestamp1) < sleep_time);
+}
+
 #else
 #include <time.h>
+#include <unistd.h>
 
 static CAL_INLINE unsigned long long cal_highres_timestamp() {
     struct timespec ts;
@@ -48,6 +63,12 @@ static CAL_INLINE unsigned long long cal_highres_timestamp() {
 
     // Convert nanoseconds to microseconds
     return ((ts.tv_sec * 1e9) + ts.tv_nsec) / 1000;
+}
+
+static CAL_INLINE void cal_usleep(
+    unsigned long long sleep_time
+) {
+    usleep(sleep_time);
 }
 
 #endif
