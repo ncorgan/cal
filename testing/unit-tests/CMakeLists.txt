@@ -11,6 +11,9 @@ INCLUDE_DIRECTORIES(
     ${CMAKE_CURRENT_SOURCE_DIR}/..
 )
 
+# Add small shared library to be loaded in dynload_test
+ADD_LIBRARY(dynlib SHARED dynlib/dynlib.c)
+
 MACRO(CAL_ADD_TEST name)
     ADD_EXECUTABLE(${name} ${name}.c)
     TARGET_LINK_LIBRARIES(${name} unity)
