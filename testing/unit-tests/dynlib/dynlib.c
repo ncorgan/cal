@@ -5,24 +5,24 @@
  * or copy at http://opensource.org/licenses/MIT)
  */
 
-#include "dynlib.h"
+#include <cal/config.h>
 
 #include <stdio.h>
 
-int add_nums(
+CAL_EXPORT int add_nums(
     int num1,
     int num2
 ) {
     return (num1 + num2);
 }
 
-void print_msg(
+CAL_EXPORT void print_msg(
     const char* msg
 ) {
     printf("%s\n", msg);
 }
 
-int greater_than_five(
+CAL_EXPORT int greater_than_five(
     int num
 ) {
     return (num > 5) ? 1 : 0;
