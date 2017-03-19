@@ -1,0 +1,21 @@
+environment:
+  matrix:
+    - GENERATOR_NAME: "Visual Studio 9 2008"
+    - GENERATOR_NAME: "Visual Studio 9 2008 Win64"
+    - GENERATOR_NAME: "Visual Studio 10 2010"
+    - GENERATOR_NAME: "Visual Studio 10 2010 Win64"
+    - GENERATOR_NAME: "Visual Studio 11 2012"
+    - GENERATOR_NAME: "Visual Studio 11 2012 Win64"
+    - GENERATOR_NAME: "Visual Studio 11 2012 ARM"
+    - GENERATOR_NAME: "Visual Studio 12 2013"
+    - GENERATOR_NAME: "Visual Studio 12 2013 Win64"
+    - GENERATOR_NAME: "Visual Studio 12 2013 ARM"
+    - GENERATOR_NAME: "Visual Studio 14 2015"
+    - GENERATOR_NAME: "Visual Studio 14 2015 Win64"
+    - GENERATOR_NAME: "Visual Studio 14 2015 ARM"
+
+platform: x64
+configuration: Release
+
+build_script:
+  - C:\projects\cal\testing\appveyor-scripts\build-test.bat
