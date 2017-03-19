@@ -34,6 +34,7 @@ else
     [ $? -ne 0 ] && exit 1
     make
     [ $? -ne 0 ] && exit 1
+    ls testing/unit-tests
     ctest --output-on-failure
     [ $? -ne 0 ] && exit 1
 fi

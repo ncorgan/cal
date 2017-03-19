@@ -9,6 +9,8 @@
 
 #include <cal/dynload.h>
 
+#include <stdio.h>
+
 // Function pointers for what we want to load
 typedef int (*add_nums_fcn_t)(int, int);
 typedef void (*print_msg_fcn_t)(const char*);
@@ -27,6 +29,8 @@ static void dynload_test() {
     print_msg_fcn_t print_msg = NULL;
     greater_than_five_fcn_t greater_than_five = NULL;
     int result = 0;
+
+    printf("%s\n", libname);
 
     library_handle = cal_loadlibrary(libname, flags);
     TEST_ASSERT_NOT_NULL(library_handle);
