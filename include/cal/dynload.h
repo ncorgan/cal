@@ -31,6 +31,17 @@ static CAL_INLINE void* cal_loadlibrary(
 #endif
 }
 
+static CAL_INLINE void* cal_getsymbol(
+    void* library_handle,
+    const char* symbol_name
+) {
+#if defined(CAL_PLATFORM_WIN32) || defined(CAL_PLATFORM_MINGW)
+    return GetProcAddress(library_handle, symbol_name);
+#else
+    return dlsym(library_handle, symbol_name);
+#endif
+}
+
 static CAL_INLINE int cal_freelibrary(
     void* library_handle
 ) {

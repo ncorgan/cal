@@ -9,6 +9,11 @@
 
 #include <cal/dynload.h>
 
+// Function pointers for what we want to load
+typedef int (*add_nums_fcn_t)(int, int);
+typedef void (*print_msg_fcn_t)(const char*);
+typedef int (*greater_than_five_fcn_t)(int);
+
 static void dynload_test() {
 #if defined(CAL_PLATFORM_WIN32) || defined(CAL_PLATFORM_MINGW)
     const char* libname = "dynlib.dll";
@@ -20,6 +25,18 @@ static void dynload_test() {
 
     void* library_handle = cal_loadlibrary(libname, flags);
     TEST_ASSERT_NOT_NULL(library_handle);
+
+    add_nums_fcn_t add_nums = cal_getsymbol(library_handle, "add_nums");
+    TEST_ASSERT_NOT_NULL(add_nums);
+    TEST_ASSERT_EQUAL(5, add_nums(2, 3));
+
+    print_msg_fcn_t print_msg = cal_getsymbol(library_handle, "print_msg");
+    TEST_ASSERT_NOT_NULL(print_msg);
+    print_msg("This is a message");
+
+    greater_than_five_fcn_t greater_than_five = cal_getsymbol(library_handle, "greater_than_five");
+    TEST_ASSERT_NOT_NULL(greater_than_five);
+    TEST_ASSERT_FALSE(greater_than_five(4));
 
     int result = cal_freelibrary(library_handle);
     TEST_ASSERT_EQUAL(0, result);
