@@ -9,7 +9,8 @@ aims to ease this issue by providing minimal functions that abstract away these 
 single API that can be used across platforms.
 
 Current features:
- * Endian-swapping
  * Dynamic library loading
+ * Endian-swapping
+ * High-frequency timing
 
 README last updated: 2016/03/01
