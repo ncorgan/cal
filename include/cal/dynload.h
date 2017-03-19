@@ -9,6 +9,7 @@
 
 #include <cal/config.h>
 
+// TODO: common flags
 #if defined(CAL_PLATFORM_WIN32) || defined(CAL_PLATFORM_MINGW)
 #    include <windows.h>
 #else
@@ -19,7 +20,7 @@
 extern "C" {
 #endif
 
-CAL_INLINE void* cal_loadlibrary(
+static CAL_INLINE void* cal_loadlibrary(
     const char* filepath,
     int flags
 ) {
@@ -30,11 +31,11 @@ CAL_INLINE void* cal_loadlibrary(
 #endif
 }
 
-CAL_INLINE int cal_freelibrary(
+static CAL_INLINE int cal_freelibrary(
     void* library_handle
 ) {
 #if defined(CAL_PLATFORM_WIN32) || defined(CAL_PLATFORM_MINGW)
-    return FreeLibrary(library_handle);
+    return (FreeLibrary(library_handle) != 0) ? 0 : 1;
 #else
     return dlclose(library_handle);
 #endif
