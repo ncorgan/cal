@@ -39,3 +39,6 @@ SET(INCLUDE_DIR include)
 ####################################################################
 ADD_SUBDIRECTORY(include)
 #ADD_SUBDIRECTORY(lib)
+
+ENABLE_TESTING()
+ADD_SUBDIRECTORY(testing)
