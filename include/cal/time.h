@@ -9,6 +9,10 @@
 
 #include <cal/config.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #if defined(CAL_PLATFORM_MACOS)
 #include <mach/mach_time.h>
 

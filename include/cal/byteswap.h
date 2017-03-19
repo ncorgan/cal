@@ -29,8 +29,8 @@
 #else
 #    define CAL_BYTESWAP16(x) (uint16_t)(((x & 0xFF) << 8) | (x >> 8))
 #    define CAL_BYTESWAP32(x) (uint32_t)((CAL_BYTESWAP16((uint16_t)(x & 0xFFFF)) << 16) | \
-                                         (CAL_BYTESWAP16((uint16_t)(num >> 16))))
-#    define CAL_BYTESWAP64(x) (uint64_t)((CAL_BYTESWAP32(((uint32_t)(x & 0xFFFFFFFF)) << 32) | \
+                                         (CAL_BYTESWAP16((uint16_t)(x >> 16))))
+#    define CAL_BYTESWAP64(x) (uint64_t)((CAL_BYTESWAP32((uint32_t)(x & 0xFFFFFFFF)) << 32) | \
                                          (CAL_BYTESWAP32((uint32_t)(x >> 32))))
 #endif
 
