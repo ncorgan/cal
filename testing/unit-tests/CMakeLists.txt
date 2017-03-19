@@ -18,10 +18,16 @@ MACRO(CAL_ADD_TEST name)
     ADD_EXECUTABLE(${name} ${name}.c)
     TARGET_LINK_LIBRARIES(${name} unity)
     IF(WIN32)
-        ADD_TEST(${name} ${CMAKE_CURRENT_BINARY_DIR}/${name}.exe)
+        ADD_TEST(
+            ${name} ${CMAKE_CURRENT_BINARY_DIR}/${name}.exe
+            WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+        )
     ELSE()
         TARGET_LINK_LIBRARIES(${name} dl)
-        ADD_TEST(${name} ${CMAKE_CURRENT_BINARY_DIR}/${name})
+        ADD_TEST(
+            ${name} ${CMAKE_CURRENT_BINARY_DIR}/${name}
+            WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+        )
     ENDIF()
 ENDMACRO()
 

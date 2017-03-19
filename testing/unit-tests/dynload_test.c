@@ -21,7 +21,7 @@ static void dynload_test() {
     const char* libname = "dynlib.dll";
     int flags = 0;
 #else
-    const char* libname = "libdynlib.so";
+    const char* libname = "./libdynlib.so";
     int flags = RTLD_LAZY;
 #endif
     void* library_handle = NULL;
