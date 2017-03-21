@@ -5,6 +5,11 @@
  * or copy at http://opensource.org/licenses/MIT)
  */
 
+// Must be set before anything else to work
+#if defined(_MSC_VER)
+#    define _CRT_SECURE_NO_WARNINGS
+#endif
+
 #include "cal_test.h"
 
 #include <cal/fs.h>
