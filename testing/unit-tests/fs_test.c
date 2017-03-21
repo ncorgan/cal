@@ -11,9 +11,17 @@
 
 #include <stdio.h>
 
+#if defined(CAL_PLATFORM_WIN32) || defined(CAL_PLATFORM_MINGW)
+#include <shlwapi.h>
+#endif
+
+// TODO: replace with CAL version when implemented
 static int file_exists(
     const char* filepath
 ) {
+#if defined(CAL_PLATFORM_WIN32) || defined(CAL_PLATFORM_MINGW)
+    return PathFileExists(filepath) ? 1 : 0;
+#else
     FILE* file = fopen(filepath, "rb");
     if(file) {
         fclose(file);
@@ -21,6 +29,7 @@ static int file_exists(
     } else {
         return 0;
     }
+#endif
 }
 
 static void appdata_dir_test() {
