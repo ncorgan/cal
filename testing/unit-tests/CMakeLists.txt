@@ -17,7 +17,8 @@ ADD_LIBRARY(dynlib SHARED dynlib/dynlib.c)
 MACRO(CAL_ADD_TEST name)
     ADD_EXECUTABLE(${name} ${name}.c)
     TARGET_LINK_LIBRARIES(${name} unity)
-    IF(WIN32)
+    IF(MSVC)
+        TARGET_LINK_LIBRARIES(${name} shlwapi)
         ADD_TEST(
             ${name} ${CMAKE_CURRENT_BINARY_DIR}/${name}.exe
             WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
