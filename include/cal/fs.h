@@ -4,8 +4,8 @@
  * Distributed under the MIT License (MIT) (See accompanying file LICENSE.txt
  * or copy at http://opensource.org/licenses/MIT)
  */
-#ifndef CAL_TIME_H
-#define CAL_TIME_H
+#ifndef CAL_FS_H
+#define CAL_FS_H
 
 #include <cal/config.h>
 
