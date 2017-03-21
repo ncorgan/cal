@@ -34,6 +34,7 @@ ENDMACRO()
 SET(cal_tests
     byteswap_test
     dynload_test
+    fs_test
     process_test
     time_test
 )
