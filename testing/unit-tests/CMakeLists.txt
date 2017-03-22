@@ -37,6 +37,7 @@ SET(cal_tests
     dynload_test
     fs_test
     process_test
+    text_test
     time_test
 )
 

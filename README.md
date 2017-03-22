@@ -13,7 +13,9 @@ single API that can be used across platforms.
 Current features:
  * Dynamic library loading
  * Endian-swapping
+ * Getting common filesystem paths
  * High-frequency timing
+ * Text conversion
 
 Testing
 -------------------------------------
@@ -30,10 +32,10 @@ repository is automatically tested under the following configurations:
      * MSVC (x86, x64): 2010, 2012, 2013, 2015
  * Cross-compile only:
    * MinGW-GCC 4.8.2
-   * MSVC (ARM): 2012, 2013, 2015
+   * MSVC (ARM): 2013, 2015
 
 All source files are analyzed with [CppCheck](http://cppcheck.sourceforge.net/).
 
 Unit tests use the [Unity](https://github.com/ThrowTheSwitch/Unity) framework.
 
-README last updated: 2017/03/19
+README last updated: 2017/03/21
