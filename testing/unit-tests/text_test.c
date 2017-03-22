@@ -35,7 +35,7 @@ static void mbswcs_utf8_test() {
 
     for(i = 0; strings[i] != NULL && wstrings[i] != NULL; ++i) {
         num_chars = cal_mbstowcs(wstrbuffer, strings[i], STRBUFFER_LEN);
-        TEST_ASSERT_EQUAL(strlen(strings[i]), num_chars);
+        TEST_ASSERT_EQUAL(wcslen(wstrings[i]), num_chars);
         TEST_ASSERT_EQUAL_WSTRING(wstrings[i], wstrbuffer);
 
         num_chars = cal_wcstombs(strbuffer, wstrbuffer, STRBUFFER_LEN);
