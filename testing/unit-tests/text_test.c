@@ -30,9 +30,11 @@ const wchar_t* wstrings[] = {
 static void mbswcs_utf8_test() {
     char strbuffer[STRBUFFER_LEN] = {0};
     wchar_t wstrbuffer[STRBUFFER_LEN] = {0};
+    size_t i = 0;
+    int num_chars = 0;
 
-    for(size_t i = 0; strings[i] != NULL && wstrings[i] != NULL; ++i) {
-        int num_chars = cal_mbstowcs(wstrbuffer, strings[i], STRBUFFER_LEN);
+    for(i = 0; strings[i] != NULL && wstrings[i] != NULL; ++i) {
+        num_chars = cal_mbstowcs(wstrbuffer, strings[i], STRBUFFER_LEN);
         TEST_ASSERT_EQUAL(strlen(strings[i]), num_chars);
         TEST_ASSERT_EQUAL_WSTRING(wstrings[i], wstrbuffer);
 
