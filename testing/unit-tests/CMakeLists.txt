@@ -14,22 +14,16 @@ INCLUDE_DIRECTORIES(
 # Add small shared library to be loaded in dynload_test
 ADD_LIBRARY(dynlib SHARED dynlib/dynlib.c)
 
+IF(WIN32)
+    SET(EXE ".exe")
+ENDIF()
+
 MACRO(CAL_ADD_TEST name)
     ADD_EXECUTABLE(${name} ${name}.c)
-    TARGET_LINK_LIBRARIES(${name} unity)
-    IF(WIN32)
-        TARGET_LINK_LIBRARIES(${name} shlwapi)
-        ADD_TEST(
-            ${name} ${CMAKE_CURRENT_BINARY_DIR}/${name}.exe
-            WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-        )
-    ELSE()
-        TARGET_LINK_LIBRARIES(${name} dl)
-        ADD_TEST(
-            ${name} ${CMAKE_CURRENT_BINARY_DIR}/${name}
-            WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-        )
-    ENDIF()
+    TARGET_LINK_LIBRARIES(${name} cal unity)
+    ADD_TEST(
+        ${name} ${CMAKE_CURRENT_BINARY_DIR}/${name}${exe}
+    )
 ENDMACRO()
 
 SET(cal_tests
