@@ -9,6 +9,15 @@
 
 #include <cal/net/ifaddrs.h>
 
+#include <string.h>
+
+static CAL_INLINE void TEST_ASSERT_STRING_NOT_EMPTY(
+    char* str
+) {
+    TEST_ASSERT_NOT_NULL(str);
+    TEST_ASSERT_TRUE(strlen(str) > 0);
+}
+
 static void ifaddrs_test() {
     int status = 0;
     size_t i = 0;
@@ -25,7 +34,11 @@ static void ifaddrs_test() {
     TEST_ASSERT_NOT_NULL(addrs._internal);
 
     for(size_t i = 0; i < addrs.length; ++i) {
-        printf("%s\n", addrs.addrs[i].ifa_name);
+        TEST_ASSERT_STRING_NOT_EMPTY(addrs.addrs[i].ifa_name);
+        TEST_ASSERT_STRING_NOT_EMPTY(addrs.addrs[i].ifa_addr_str);
+        TEST_ASSERT_NOT_NULL(addrs.addrs[i].ifa_addr);
+        TEST_ASSERT_NOT_NULL(addrs.addrs[i].ifa_netmask);
+        // broadaddr can be null
     }
 
     cal_freeifaddrs(&addrs);

@@ -19,6 +19,7 @@
 
 struct cal_ifaddr {
     char* ifa_name;
+    char* ifa_addr_str;
 
     struct sockaddr* ifa_addr;
     struct sockaddr* ifa_netmask;
