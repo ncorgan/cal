@@ -10,7 +10,7 @@
 
 #if defined(_MSC_VER)
     #define CAL_EXPORT         __declspec(dllexport)
-    #define CAL_IMPORT         __declspec(dllimport)
+    #define CAL_IMPORT         //__declspec(dllimport)
     #define CAL_INLINE         __forceinline
     #define CAL_DEPRECATED     __declspec(deprecated)
     #define CAL_ALIGNED(x)     __declspec(align(x))

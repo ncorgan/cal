@@ -22,18 +22,17 @@ static void ifaddrs_test() {
     int status = 0;
     size_t i = 0;
 
-    struct cal_ifaddrs addrs = {
-        .addrs = NULL,
-        .length = 0,
-        ._internal = NULL
-    };
+	struct cal_ifaddrs addrs;
+	addrs.addrs = NULL;
+	addrs.length = 0;
+	addrs._internal = NULL;
 
     status = cal_getifaddrs(&addrs);
     TEST_ASSERT_NOT_NULL(addrs.addrs);
     TEST_ASSERT_NOT_EQUAL(0, addrs.length);
     TEST_ASSERT_NOT_NULL(addrs._internal);
 
-    for(size_t i = 0; i < addrs.length; ++i) {
+    for(i = 0; i < addrs.length; ++i) {
         TEST_ASSERT_STRING_NOT_EMPTY(addrs.addrs[i].ifa_name);
         TEST_ASSERT_STRING_NOT_EMPTY(addrs.addrs[i].ifa_addr_str);
         TEST_ASSERT_NOT_NULL(addrs.addrs[i].ifa_addr);
