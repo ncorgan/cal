@@ -13,6 +13,7 @@
 #include <wchar.h>
 
 #if defined(CAL_PLATFORM_WIN32) || defined(CAL_PLATFORM_MINGW)
+#define _WINSOCKAPI_ // stops windows.h including winsock.h
 #include <windows.h>
 #else
 #include <locale.h>

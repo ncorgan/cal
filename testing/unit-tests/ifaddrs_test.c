@@ -28,6 +28,7 @@ static void ifaddrs_test() {
 	addrs._internal = NULL;
 
     status = cal_getifaddrs(&addrs);
+    TEST_ASSERT_EQUAL(0, status);
     TEST_ASSERT_NOT_NULL(addrs.addrs);
     TEST_ASSERT_NOT_EQUAL(0, addrs.length);
     TEST_ASSERT_NOT_NULL(addrs._internal);

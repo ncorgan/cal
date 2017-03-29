@@ -15,7 +15,9 @@ SET(cal_srcs
 )
 IF(WIN32)
     SET(cal_libs
+		iphlpapi
         shlwapi
+        ws2_32
     )
 ELSE()
     SET(cal_libs
