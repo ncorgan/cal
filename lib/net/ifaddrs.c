@@ -14,6 +14,7 @@
 #if defined(CAL_PLATFORM_WIN32) || defined(CAL_PLATFORM_MINGW)
 
 #include <iphlpapi.h>
+#include <mstcpip.h>
 #include <winsock2.h>
 #include <ws2tcpip.h>
 
@@ -34,8 +35,10 @@ int cal_getifaddrs(
     ULONG family = AF_UNSPEC; // Both IPv4 and IPv6
     ULONG outBufLen = WORKING_BUFFER_SIZE;
     ULONG iterations = 0;
+    LONG mask = 0;
     PIP_ADAPTER_ADDRESSES native = NULL, iter = NULL;
     PIP_ADAPTER_UNICAST_ADDRESS pUnicast = NULL;
+    PIP_ADAPTER_PREFIX prefix = NULL;
     WSADATA wsaData;
     wchar_t* wchar_address = NULL;
     
@@ -43,9 +46,13 @@ int cal_getifaddrs(
         return -1;
     }
 
+    // Initialize Winsock.
+    WSAStartup(MAKEWORD(2,2), &wsaData);
+
     do {
         addrs->_internal = (PIP_ADAPTER_ADDRESSES)MALLOC(outBufLen);
         if(!addrs->_internal) {
+            WSACleanup();
             return -1;
         }
 
@@ -91,8 +98,6 @@ int cal_getifaddrs(
             wchar_address = calloc(sizeof(wchar_t)*STRING_ALLOC_SIZE, 1);
             dwSize = STRING_ALLOC_SIZE;
 
-            // Winsock needs to be initialized for this call.
-            WSAStartup(MAKEWORD(2,2), &wsaData);
             dwRetVal = WSAAddressToStringW(
                            addrs->addrs[i].ifa_addr,
                            pUnicast->Address.iSockaddrLength,
@@ -100,7 +105,6 @@ int cal_getifaddrs(
                            wchar_address,
                            &dwSize
                        );
-            WSACleanup();
 
             cal_wcstombs(
                 addrs->addrs[i].ifa_addr_str,
@@ -108,9 +112,38 @@ int cal_getifaddrs(
                 STRING_ALLOC_SIZE
             );
             free(wchar_address);
+
+            // Netmask/prefix.
+            if(addrs->addrs[i].ifa_addr->sa_family == AF_INET) {
+                addrs->addrs[i].ifa_netmask = calloc(pUnicast->Address.iSockaddrLength, 1);
+                ConvertLengthToIpv4Mask((ULONG)pUnicast->OnLinkPrefixLength, &mask);
+                addrs->addrs[i].ifa_netmask_str = calloc(STRING_ALLOC_SIZE, 1);
+                RtlIpv4AddressToString((const IN_ADDR*)&mask, addrs->addrs[i].ifa_netmask_str);
+
+                wchar_address = calloc(STRING_ALLOC_SIZE, sizeof(wchar_t));
+                cal_mbstowcs(
+                    wchar_address,
+                    addrs->addrs[i].ifa_netmask_str,
+                    STRING_ALLOC_SIZE
+                );
+
+                WSAStringToAddressW(
+                    wchar_address,
+                    AF_INET,
+                    NULL,
+                    addrs->addrs[i].ifa_netmask,
+                    &pUnicast->Address.iSockaddrLength
+                );
+                free(wchar_address);
+            } else {
+                // IPv6
+                addrs->addrs[i].ifa_netmask = NULL;
+                addrs->addrs[i].ifa_netmask_str = NULL;
+            }
         }
     }
 
+    WSACleanup();
     return (int)dwRetVal;
 }
 
@@ -121,7 +154,14 @@ void cal_freeifaddrs(
 
     for(i = 0; i < addrs->length; ++i) {
         free(addrs->addrs[i].ifa_name);
+
         free(addrs->addrs[i].ifa_addr_str);
+
+        // Either both or neither will be null.
+        if(addrs->addrs[i].ifa_netmask) {
+            free(addrs->addrs[i].ifa_netmask);
+            free(addrs->addrs[i].ifa_netmask_str);
+        }
     }
 
     free(addrs->addrs);
@@ -173,6 +213,10 @@ int cal_getifaddrs(
     addrs->addrs = calloc(sizeof(struct cal_ifaddr)*addrs->length, 1);
     for(iter = native; iter != NULL; iter = iter->ifa_next) {
         if(iter->ifa_addr && family_is_inet(iter->ifa_addr->sa_family)) {
+            // TODO: other fields
+            addrs->addrs[i].ifa_netmask_str = NULL;
+            addrs->addrs[i].ifa_broadaddr_str = NULL;
+
             addrs->addrs[i].ifa_addr_str = calloc(NI_MAXHOST, 1);
             status = getnameinfo(
                          iter->ifa_addr,

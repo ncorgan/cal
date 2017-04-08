@@ -19,14 +19,18 @@
 
 struct cal_ifaddr {
     char* ifa_name;
-    char* ifa_addr_str;
 
     struct sockaddr* ifa_addr;
+    char* ifa_addr_str;
+
     struct sockaddr* ifa_netmask;
+    char* ifa_netmask_str;
+
     union {
         struct sockaddr* ifu_broadaddr;
         struct sockaddr* ifu_dstaddr;
     };
+    char* ifu_broadaddr_str;
 };
 
 struct cal_ifaddrs {

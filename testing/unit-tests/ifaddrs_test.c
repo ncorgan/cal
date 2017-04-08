@@ -36,8 +36,15 @@ static void ifaddrs_test() {
     for(i = 0; i < addrs.length; ++i) {
         TEST_ASSERT_STRING_NOT_EMPTY(addrs.addrs[i].ifa_name);
         TEST_ASSERT_STRING_NOT_EMPTY(addrs.addrs[i].ifa_addr_str);
-        TEST_ASSERT_NOT_NULL(addrs.addrs[i].ifa_addr);
-        TEST_ASSERT_NOT_NULL(addrs.addrs[i].ifa_netmask);
+        // At least for now, netmask/prefix is set to NULL on Windows.
+        #if defined(CAL_PLATFORM_WIN32) || defined(CAL_PLATFORM_MINGW)
+        if(addrs.addrs[i].ifa_addr->sa_family == AF_INET) {
+        #endif
+            TEST_ASSERT_NOT_NULL(addrs.addrs[i].ifa_addr);
+            TEST_ASSERT_NOT_NULL(addrs.addrs[i].ifa_netmask);
+        #if defined(CAL_PLATFORM_WIN32) || defined(CAL_PLATFORM_MINGW)
+        }
+        #endif
         // broadaddr can be null
     }
 
