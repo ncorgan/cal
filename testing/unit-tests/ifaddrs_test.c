@@ -22,10 +22,10 @@ static void ifaddrs_test() {
     int status = 0;
     size_t i = 0;
 
-	struct cal_ifaddrs addrs;
-	addrs.addrs = NULL;
-	addrs.length = 0;
-	addrs._internal = NULL;
+    struct cal_ifaddrs addrs;
+    addrs.addrs = NULL;
+    addrs.length = 0;
+    addrs._internal = NULL;
 
     status = cal_getifaddrs(&addrs);
     TEST_ASSERT_EQUAL(0, status);
@@ -35,17 +35,16 @@ static void ifaddrs_test() {
 
     for(i = 0; i < addrs.length; ++i) {
         TEST_ASSERT_STRING_NOT_EMPTY(addrs.addrs[i].ifa_name);
+
+        TEST_ASSERT_NOT_NULL(addrs.addrs[i].ifa_addr);
+        TEST_ASSERT_NOT_NULL(addrs.addrs[i].ifa_netmask);
+
         TEST_ASSERT_STRING_NOT_EMPTY(addrs.addrs[i].ifa_addr_str);
-        // At least for now, netmask/prefix is set to NULL on Windows.
-        #if defined(CAL_PLATFORM_WIN32) || defined(CAL_PLATFORM_MINGW)
-        if(addrs.addrs[i].ifa_addr->sa_family == AF_INET) {
-        #endif
-            TEST_ASSERT_NOT_NULL(addrs.addrs[i].ifa_addr);
-            TEST_ASSERT_NOT_NULL(addrs.addrs[i].ifa_netmask);
-        #if defined(CAL_PLATFORM_WIN32) || defined(CAL_PLATFORM_MINGW)
-        }
-        #endif
-        // broadaddr can be null
+        TEST_ASSERT_STRING_NOT_EMPTY(addrs.addrs[i].ifa_netmask_str);
+        TEST_ASSERT_EQUAL(
+            (addrs.addrs[i].ifu_dstaddr == NULL),
+            (addrs.addrs[i].ifu_dstaddr_str == NULL)
+        );
     }
 
     cal_freeifaddrs(&addrs);

@@ -21,16 +21,18 @@ struct cal_ifaddr {
     char* ifa_name;
 
     struct sockaddr* ifa_addr;
-    char* ifa_addr_str;
-
     struct sockaddr* ifa_netmask;
-    char* ifa_netmask_str;
-
     union {
         struct sockaddr* ifu_broadaddr;
         struct sockaddr* ifu_dstaddr;
     };
-    char* ifu_broadaddr_str;
+
+    char* ifa_addr_str;
+    char* ifa_netmask_str;
+    union {
+        char* ifu_broadaddr_str;
+        char* ifu_dstaddr_str;
+    };
 };
 
 struct cal_ifaddrs {

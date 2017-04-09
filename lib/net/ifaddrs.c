@@ -213,9 +213,10 @@ int cal_getifaddrs(
     addrs->addrs = calloc(sizeof(struct cal_ifaddr)*addrs->length, 1);
     for(iter = native; iter != NULL; iter = iter->ifa_next) {
         if(iter->ifa_addr && family_is_inet(iter->ifa_addr->sa_family)) {
-            // TODO: other fields
-            addrs->addrs[i].ifa_netmask_str = NULL;
-            addrs->addrs[i].ifa_broadaddr_str = NULL;
+            addrs->addrs[i].ifa_name = iter->ifa_name;
+            addrs->addrs[i].ifa_addr = iter->ifa_addr;
+            addrs->addrs[i].ifa_netmask = iter->ifa_netmask;
+            addrs->addrs[i].ifu_dstaddr = iter->ifa_dstaddr;
 
             addrs->addrs[i].ifa_addr_str = calloc(NI_MAXHOST, 1);
             status = getnameinfo(
@@ -229,10 +230,34 @@ int cal_getifaddrs(
                          NI_NUMERICHOST
                      );
 
-            addrs->addrs[i].ifa_name = iter->ifa_name;
-            addrs->addrs[i].ifa_addr = iter->ifa_addr;
-            addrs->addrs[i].ifa_netmask = iter->ifa_netmask;
-            addrs->addrs[i].ifu_dstaddr = iter->ifa_dstaddr;
+            addrs->addrs[i].ifa_netmask_str = calloc(NI_MAXHOST, 1);
+            status = getnameinfo(
+                         iter->ifa_netmask,
+                         (iter->ifa_netmask->sa_family == AF_INET) ? sizeof(struct sockaddr_in)
+                                                                   : sizeof(struct sockaddr_in6),
+                         addrs->addrs[i].ifa_netmask_str,
+                         NI_MAXHOST,
+                         NULL,
+                         0,
+                         NI_NUMERICHOST
+                     );
+
+            if(addrs->addrs[i].ifu_dstaddr) {
+                addrs->addrs[i].ifu_dstaddr_str = calloc(NI_MAXHOST, 1);
+                status = getnameinfo(
+                             iter->ifa_dstaddr,
+                             (iter->ifa_dstaddr->sa_family == AF_INET) ? sizeof(struct sockaddr_in)
+                                                                       : sizeof(struct sockaddr_in6),
+                             addrs->addrs[i].ifu_dstaddr_str,
+                             NI_MAXHOST,
+                             NULL,
+                             0,
+                             NI_NUMERICHOST
+                         );
+            } else {
+                addrs->addrs[i].ifu_dstaddr_str = NULL;
+            }
+
             ++i;
         }
     }
