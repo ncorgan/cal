@@ -272,6 +272,10 @@ void cal_freeifaddrs(
 
     for(i = 0; i < addrs->length; ++i) {
         free(addrs->addrs[i].ifa_addr_str);
+        free(addrs->addrs[i].ifa_netmask_str);
+        if(addrs->addrs[i].ifu_dstaddr_str) {
+            free(addrs->addrs[i].ifu_dstaddr_str);
+        }
     }
 
     free(addrs->addrs);
