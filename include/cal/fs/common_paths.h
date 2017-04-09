@@ -4,17 +4,17 @@
  * Distributed under the MIT License (MIT) (See accompanying file LICENSE.txt
  * or copy at http://opensource.org/licenses/MIT)
  */
-#ifndef CAL_FS_H
-#define CAL_FS_H
+#ifndef CAL_FS_COMMON_PATHS_H
+#define CAL_FS_COMMON_PATHS_H
 
 #include <cal/config.h>
 
 #include <stdlib.h>
 
 #if defined(CAL_PLATFORM_WIN32) || defined(CAL_PLATFORM_MINGW)
-#    define CAL_FS_SEPARATOR "\\"
+#    define CAL_FS_COMMON_PATHS_SEPARATOR "\\"
 #else
-#    define CAL_FS_SEPARATOR "/"
+#    define CAL_FS_COMMON_PATHS_SEPARATOR "/"
 #endif
 
 #ifdef __cplusplus

@@ -12,7 +12,7 @@
 
 #include "cal_test.h"
 
-#include <cal/fs.h>
+#include <cal/fs/common_paths.h>
 
 #include <stdio.h>
 
