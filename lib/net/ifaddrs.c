@@ -179,7 +179,7 @@ void cal_freeifaddrs(
 #include <ifaddrs.h>
 #include <netdb.h>
 
-static CAL_INLINE int family_is_inet(
+static CAL_FORCEINLINE int family_is_inet(
     int family
 ) {
     return (family == AF_INET || family == AF_INET6);
