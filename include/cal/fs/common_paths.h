@@ -21,7 +21,7 @@
 extern "C" {
 #endif
 
-static CAL_INLINE const char* cal_appdata_dir() {
+static CAL_FORCEINLINE const char* cal_appdata_dir() {
 #if defined(CAL_PLATFORM_WIN32) || defined(CAL_PLATFORM_MINGW)
     return getenv("APPDATA");
 #else
@@ -29,7 +29,7 @@ static CAL_INLINE const char* cal_appdata_dir() {
 #endif
 }
 
-static CAL_INLINE const char* cal_tmp_dir() {
+static const char* cal_tmp_dir() {
     const char* ret = getenv("TMP");
     if(ret) {
         return ret;
