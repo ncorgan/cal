@@ -46,11 +46,11 @@ struct cal_ifaddrs {
 extern "C" {
 #endif
 
-CAL_API int cal_getifaddrs(
+int cal_getifaddrs(
     struct cal_ifaddrs* addrs
 );
 
-CAL_API void cal_freeifaddrs(
+void cal_freeifaddrs(
     struct cal_ifaddrs* addrs
 );
 
