@@ -7,4 +7,4 @@
 #
 
 sudo apt-get -y update
-sudo apt-get -y install cmake cppcheck gcc-mingw-w64-x86-64
+sudo apt-get -y install cmake cppcheck
