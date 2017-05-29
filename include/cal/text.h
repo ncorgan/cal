@@ -24,7 +24,7 @@
 extern "C" {
 #endif
 
-static CAL_INLINE int cal_mbstowcs(
+static inline int cal_mbstowcs(
     wchar_t* output,
     const char* input,
     size_t num_chars
@@ -50,7 +50,7 @@ static CAL_INLINE int cal_mbstowcs(
 #endif
 }
 
-static CAL_INLINE int cal_wcstombs(
+static inline int cal_wcstombs(
     char* output,
     const wchar_t* input,
     size_t num_chars

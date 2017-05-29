@@ -20,7 +20,7 @@
 extern "C" {
 #endif
 
-static CAL_INLINE void* cal_loadlibrary(
+static CAL_FORCEINLINE void* cal_loadlibrary(
     const char* filepath,
     int flags
 ) {
@@ -31,7 +31,7 @@ static CAL_INLINE void* cal_loadlibrary(
 #endif
 }
 
-static CAL_INLINE void* cal_getsymbol(
+static CAL_FORCEINLINE void* cal_getsymbol(
     void* library_handle,
     const char* symbol_name
 ) {
@@ -42,7 +42,7 @@ static CAL_INLINE void* cal_getsymbol(
 #endif
 }
 
-static CAL_INLINE int cal_freelibrary(
+static CAL_FORCEINLINE int cal_freelibrary(
     void* library_handle
 ) {
 #if defined(CAL_PLATFORM_WIN32) || defined(CAL_PLATFORM_MINGW)

@@ -21,7 +21,7 @@ extern "C" {
 #    include <unistd.h>
 #endif
 
-static CAL_INLINE int cal_getpid() {
+static CAL_FORCEINLINE int cal_getpid() {
 #if defined(CAL_PLATFORM_WIN32) || defined(CAL_PLATFORM_MINGW)
     return GetCurrentProcessId();
 #else
@@ -29,7 +29,7 @@ static CAL_INLINE int cal_getpid() {
 #endif
 }
 
-static CAL_INLINE int cal_gettid() {
+static CAL_FORCEINLINE int cal_gettid() {
 #if defined(CAL_PLATFORM_WIN32) || defined(CAL_PLATFORM_MINGW)
     return GetCurrentThreadId();
 #elif defined(CAL_PLATFORM_MACOS)

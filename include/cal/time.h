@@ -17,7 +17,7 @@ extern "C" {
 #include <mach/mach_time.h>
 #include <unistd.h>
 
-static CAL_INLINE unsigned long long cal_highres_timestamp() {
+static inline unsigned long long cal_highres_timestamp() {
     mach_timebase_info_data_t timebase_info;
     mach_timebase_info(&timebase_info);
 
@@ -25,7 +25,7 @@ static CAL_INLINE unsigned long long cal_highres_timestamp() {
     return (mach_absolute_time() * (timebase_info.numer / timebase_info.denom)) / 1000;
 }
 
-static CAL_INLINE void cal_usleep(
+static inline void cal_usleep(
     unsigned long long sleep_time
 ) {
     usleep(sleep_time);
@@ -34,7 +34,7 @@ static CAL_INLINE void cal_usleep(
 #elif defined(CAL_PLATFORM_WIN32) || defined(CAL_PLATFORM_MINGW)
 #include <windows.h>
 
-static CAL_INLINE unsigned long long cal_highres_timestamp() {
+static inline unsigned long long cal_highres_timestamp() {
     FILETIME filetime;
 #if defined(NTDDI_WIN8) && NTDDI_VERSION >= NTDDI_WIN8
     GetSystemTimePreciseAsFileTime(&filetime);
@@ -46,7 +46,7 @@ static CAL_INLINE unsigned long long cal_highres_timestamp() {
     return *((unsigned long long*)&filetime) / 10;
 }
 
-static CAL_INLINE void cal_usleep(
+static inline void cal_usleep(
     unsigned long long sleep_time
 ) {
     unsigned long long timestamp1 = cal_highres_timestamp();
@@ -57,7 +57,7 @@ static CAL_INLINE void cal_usleep(
 #include <time.h>
 #include <unistd.h>
 
-static CAL_INLINE unsigned long long cal_highres_timestamp() {
+static inline unsigned long long cal_highres_timestamp() {
     struct timespec ts;
     clock_gettime(CLOCK_REALTIME, &ts);
 
@@ -65,7 +65,7 @@ static CAL_INLINE unsigned long long cal_highres_timestamp() {
     return ((ts.tv_sec * 1e9) + ts.tv_nsec) / 1000;
 }
 
-static CAL_INLINE void cal_usleep(
+static inline void cal_usleep(
     unsigned long long sleep_time
 ) {
     usleep(sleep_time);

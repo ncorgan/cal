@@ -38,15 +38,15 @@
 extern "C" {
 #endif
 
-static CAL_INLINE uint16_t cal_byteswap16(uint16_t num) {
+static CAL_FORCEINLINE uint16_t cal_byteswap16(uint16_t num) {
     return CAL_BYTESWAP16(num);
 }
 
-static CAL_INLINE uint32_t cal_byteswap32(uint32_t num) {
+static CAL_FORCEINLINE uint32_t cal_byteswap32(uint32_t num) {
     return CAL_BYTESWAP32(num);
 }
 
-static CAL_INLINE uint64_t cal_byteswap64(uint64_t num) {
+static CAL_FORCEINLINE uint64_t cal_byteswap64(uint64_t num) {
     return CAL_BYTESWAP64(num);
 }
 
