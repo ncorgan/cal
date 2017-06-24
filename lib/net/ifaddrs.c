@@ -9,7 +9,6 @@
 #include <cal/net/ifaddrs.h>
 
 #include <stdint.h>
-#include <stdio.h>
 #include <string.h>
 
 #if defined(CAL_PLATFORM_WIN32) || defined(CAL_PLATFORM_MINGW)

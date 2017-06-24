@@ -35,14 +35,12 @@ static void ifaddrs_test() {
 
     for(i = 0; i < addrs.length; ++i) {
         TEST_ASSERT_STRING_NOT_EMPTY(addrs.addrs[i].ifa_name);
-		printf("%s\n", addrs.addrs[i].ifa_name);
 
         TEST_ASSERT_NOT_NULL(addrs.addrs[i].ifa_addr);
-        //TEST_ASSERT_NOT_NULL(addrs.addrs[i].ifa_netmask);
-		printf("%s %s\n", addrs.addrs[i].ifa_addr_str, addrs.addrs[i].ifa_netmask_str);
+        TEST_ASSERT_NOT_NULL(addrs.addrs[i].ifa_netmask);
 
         TEST_ASSERT_STRING_NOT_EMPTY(addrs.addrs[i].ifa_addr_str);
-        //TEST_ASSERT_STRING_NOT_EMPTY(addrs.addrs[i].ifa_netmask_str);
+        TEST_ASSERT_STRING_NOT_EMPTY(addrs.addrs[i].ifa_netmask_str);
         TEST_ASSERT_EQUAL(
             (addrs.addrs[i].ifu_dstaddr == NULL),
             (addrs.addrs[i].ifu_dstaddr_str == NULL)
