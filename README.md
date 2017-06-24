@@ -30,13 +30,12 @@ repository is automatically tested under the following configurations:
      * GCC: 4.8.4, 6.2.0
      * Clang: 3.5.0, 4.0.0
    * Windows Server 2012 R2
-     * MSVC (x86, x64): 2010, 2012, 2013, 2015
+     * MSVC (x86, x64): 2013, 2015
  * Cross-compile only:
-   * MinGW-GCC 4.8.2
    * MSVC (ARM): 2013, 2015
 
 All source files are analyzed with [CppCheck](http://cppcheck.sourceforge.net/).
 
 Unit tests use the [Unity](https://github.com/ThrowTheSwitch/Unity) framework.
 
-README last updated: 2017/04/08
+README last updated: 2017/06/24
