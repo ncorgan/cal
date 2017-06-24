@@ -231,7 +231,6 @@ int cal_getifaddrs(
 )
 {
     struct ifaddrs *native, *iter;
-    int status = 0;
     size_t i = 0;
 
     if(!addrs)
