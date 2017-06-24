@@ -11,7 +11,7 @@
 
 #include <string.h>
 
-static inline void TEST_ASSERT_STRING_NOT_EMPTY(
+static CAL_INLINE void TEST_ASSERT_STRING_NOT_EMPTY(
     char* str
 ) {
     TEST_ASSERT_NOT_NULL(str);

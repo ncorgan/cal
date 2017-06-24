@@ -258,6 +258,8 @@ int cal_getifaddrs(
     addrs->addrs = calloc(sizeof(struct cal_ifaddr)*addrs->length, 1);
     for(iter = native; iter != NULL; iter = iter->ifa_next)
     {
+        int status = 0;
+
         if(iter->ifa_addr && family_is_inet(iter->ifa_addr->sa_family))
         {
             addrs->addrs[i].ifa_name = iter->ifa_name;
