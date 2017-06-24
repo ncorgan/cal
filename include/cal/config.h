@@ -11,6 +11,7 @@
 #if defined(_MSC_VER)
     #define CAL_EXPORT         __declspec(dllexport)
     #define CAL_IMPORT         __declspec(dllimport)
+    #define CAL_INLINE         __inline
     #define CAL_FORCEINLINE    __forceinline
     #define CAL_DEPRECATED     __declspec(deprecated)
     #define CAL_ALIGNED(x)     __declspec(align(x))
@@ -18,6 +19,7 @@
 #elif defined(__MINGW32__)
     #define CAL_EXPORT         __declspec(dllexport)
     #define CAL_IMPORT         __declspec(dllimport)
+    #define CAL_INLINE         inline
     #define CAL_FORCEINLINE    inline
     #define CAL_DEPRECATED     __declspec(deprecated)
     #define CAL_ALIGNED(x)     __declspec(align(x))
@@ -25,6 +27,7 @@
 #elif defined(__GNUG__) && __GNUG__ >= 4 || defined(__clang__)
     #define CAL_EXPORT         __attribute__((visibility("default")))
     #define CAL_IMPORT         __attribute__((visibility("default")))
+    #define CAL_INLINE         inline
     #define CAL_FORCEINLINE    inline __attribute__((always_inline))
     #define CAL_DEPRECATED     __attribute__((deprecated))
     #define CAL_ALIGNED(x)     __attribute__((aligned(x)))
@@ -32,6 +35,7 @@
 #else
     #define CAL_EXPORT
     #define CAL_IMPORT
+    #define CAL_INLINE         inline
     #define CAL_FORCEINLINE    inline
     #define CAL_DEPRECATED
     #define CAL_ALIGNED(x)

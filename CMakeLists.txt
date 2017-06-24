@@ -35,6 +35,15 @@ SET(LIBRARY_DIR lib${LIB_SUFFIX})
 SET(INCLUDE_DIR include)
 
 ####################################################################
+# Set flags
+####################################################################
+IF(MSVC)
+    SET(CAL_FLAGS "")
+ELSE(MSVC)
+    SET(CAL_FLAGS "-O3 -std=gnu99 -Wall -Wextra -Werror -fvisibility=hidden")
+ENDIF(MSVC)
+
+####################################################################
 # Actual building
 ####################################################################
 ADD_SUBDIRECTORY(lib)

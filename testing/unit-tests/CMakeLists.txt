@@ -19,6 +19,9 @@ IF(WIN32)
 ENDIF()
 
 MACRO(CAL_ADD_TEST name)
+    SET_SOURCE_FILES_PROPERTIES(${name}.c
+        PROPERTIES COMPILE_FLAGS "${CAL_FLAGS}"
+    )
     ADD_EXECUTABLE(${name} ${name}.c)
     TARGET_LINK_LIBRARIES(${name} cal unity)
     ADD_TEST(

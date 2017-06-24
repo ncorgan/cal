@@ -26,5 +26,9 @@ ELSE()
     )
 ENDIF()
 
+SET_SOURCE_FILES_PROPERTIES(${cal_srcs}
+    PROPERTIES COMPILE_FLAGS "${CAL_FLAGS}"
+)
+
 ADD_LIBRARY(cal STATIC ${cal_srcs})
 TARGET_LINK_LIBRARIES(cal ${cal_libs})
