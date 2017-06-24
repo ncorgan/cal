@@ -32,16 +32,11 @@ static void mbswcs_utf8_test() {
     wchar_t wstrbuffer[STRBUFFER_LEN] = {0};
 
     for(size_t i = 0; strings[i] != NULL && wstrings[i] != NULL; ++i) {
-        int num_chars = 0;
-
-        num_chars = cal_mbstowcs(wstrbuffer, strings[i], STRBUFFER_LEN);
+        (void)cal_mbstowcs(wstrbuffer, strings[i], STRBUFFER_LEN);
         TEST_ASSERT_EQUAL_WSTRING(wstrings[i], wstrbuffer);
 
-        num_chars = cal_wcstombs(strbuffer, wstrbuffer, STRBUFFER_LEN);
+        (void)cal_wcstombs(strbuffer, wstrbuffer, STRBUFFER_LEN);
         TEST_ASSERT_EQUAL_STRING(strings[i], strbuffer);
-
-        // Redundant, but suppresses warning
-        TEST_ASSERT_EQUAL(strlen(strings[i]), num_chars);
     }
 }
 
