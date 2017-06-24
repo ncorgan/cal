@@ -277,6 +277,10 @@ int cal_getifaddrs(
                          0,
                          NI_NUMERICHOST
                      );
+            if(status)
+            {
+                return status;
+            }
 
             addrs->addrs[i].ifa_netmask_str = calloc(NI_MAXHOST, 1);
             status = getnameinfo(
@@ -289,6 +293,10 @@ int cal_getifaddrs(
                          0,
                          NI_NUMERICHOST
                      );
+            if(status)
+            {
+                return status;
+            }
 
             if(addrs->addrs[i].ifu_dstaddr) {
                 addrs->addrs[i].ifu_dstaddr_str = calloc(NI_MAXHOST, 1);
@@ -302,6 +310,10 @@ int cal_getifaddrs(
                              0,
                              NI_NUMERICHOST
                          );
+                if(status)
+                {
+                    return status;
+                }
             } else {
                 addrs->addrs[i].ifu_dstaddr_str = NULL;
             }
