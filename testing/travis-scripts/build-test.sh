@@ -32,7 +32,7 @@ then
 else
     cmake $REPO_TOPLEVEL
     [ $? -ne 0 ] && exit 1
-    make
+    make -k
     [ $? -ne 0 ] && exit 1
     ctest --output-on-failure
     [ $? -ne 0 ] && exit 1
