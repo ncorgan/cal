@@ -20,18 +20,24 @@
 #include <shlwapi.h>
 #endif
 
+#define CAL_BUFFER_LEN 1024
+
 // TODO: replace with CAL version when implemented
 static int file_exists(
     const char* filepath
-) {
+)
+{
 #if defined(CAL_PLATFORM_WIN32) || defined(CAL_PLATFORM_MINGW)
     return PathFileExists(filepath) ? 1 : 0;
 #else
     FILE* file = fopen(filepath, "rb");
-    if(file) {
+    if(file)
+    {
         fclose(file);
         return 1;
-    } else {
+    }
+    else
+    {
         return 0;
     }
 #endif
@@ -43,7 +49,20 @@ static void appdata_dir_test() {
     TEST_ASSERT_TRUE(file_exists(appdata_dir));
 }
 
-static void tmp_dir_test() {
+static void current_exe_test()
+{
+    char buffer[CAL_BUFFER_LEN] = {0};
+
+    ssize_t errcode = cal_current_exe(
+                         buffer,
+                         sizeof(buffer)
+                      );
+    printf("%s\n", buffer);
+    TEST_ASSERT_EQUAL(0, errcode);
+}
+
+static void tmp_dir_test()
+{
     const char* tmp_dir = cal_tmp_dir();
     TEST_ASSERT_NOT_NULL(tmp_dir);
     TEST_ASSERT_TRUE(file_exists(tmp_dir));
@@ -51,5 +70,6 @@ static void tmp_dir_test() {
 
 CAL_TEST_MAIN(
     CAL_TEST(appdata_dir_test)
+    CAL_TEST(current_exe_test)
     CAL_TEST(tmp_dir_test)
 )
