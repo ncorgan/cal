@@ -23,6 +23,7 @@ static CAL_FORCEINLINE long cal_cpu_count() {
 #if defined(CAL_PLATFORM_WIN32) || defined(CAL_PLATFORM_MINGW)
     return 0;
 #else
+    // TODO: does this work with OS X?
     return sysconf(_SC_NPROCESSORS_ONLN);
 #endif
 }

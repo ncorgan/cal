@@ -13,7 +13,7 @@
 
 static void cpu_count_test() {
     long cpu_count = cal_cpu_count();
-    printf("%ld\n", cpu_count);
+    TEST_ASSERT(cpu_count > 0);
 }
 
 CAL_TEST_MAIN(
