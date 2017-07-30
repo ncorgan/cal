@@ -55,7 +55,7 @@ static void current_exe_test()
 
     ssize_t errcode = cal_current_exe(
                          buffer,
-                         sizeof(buffer)
+                         sizeof(buffer)-1
                       );
     printf("%s\n", buffer);
     TEST_ASSERT_EQUAL(0, errcode);
