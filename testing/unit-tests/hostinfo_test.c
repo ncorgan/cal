@@ -35,14 +35,22 @@ static void gethostid_test()
 #endif
 }
 
-static void gethostname_test() {
+static void gethostname_test()
+{
     char hostname_buffer[BUFFER_LEN] = {0};
     int error_code = cal_gethostname(hostname_buffer, sizeof(hostname_buffer));
     TEST_ASSERT_EQUAL(0, error_code);
     TEST_ASSERT_TRUE(strlen(hostname_buffer) > 0);
 }
 
+static void getpagesize_test()
+{
+    long page_size = cal_getpagesize();
+    TEST_ASSERT_TRUE(page_size > 0);
+}
+
 CAL_TEST_MAIN(
     CAL_TEST(gethostid_test)
     CAL_TEST(gethostname_test)
+    CAL_TEST(getpagesize_test)
 )

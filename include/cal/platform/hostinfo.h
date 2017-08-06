@@ -46,6 +46,17 @@ static CAL_INLINE int cal_gethostname(
 #endif
 }
 
+static CAL_INLINE long cal_getpagesize()
+{
+#if defined(CAL_PLATFORM_WIN32) || defined(CAL_PLATFORM_MINGW)
+    SYSTEM_INFO system_info;
+    GetNativeSystemInfo(&system_info);
+    return (long)system_info.dwPageSize;
+#else
+    return (long)getpagesize();
+#endif
+}
+
 #ifdef __cplusplus
 }
 #endif
