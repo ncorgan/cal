@@ -30,6 +30,7 @@ MACRO(CAL_ADD_TEST name)
 ENDMACRO()
 
 SET(cal_tests
+    branch_prediction_test
     byteswap_test
     dynload_test
     fs_test

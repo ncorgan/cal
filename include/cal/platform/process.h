@@ -4,8 +4,8 @@
  * Distributed under the MIT License (MIT) (See accompanying file LICENSE.txt
  * or copy at http://opensource.org/licenses/MIT)
  */
-#ifndef CAL_PROCESS_H
-#define CAL_PROCESS_H
+#ifndef CAL_PLATFORM_PROCESS_H
+#define CAL_PLATFORM_PROCESS_H
 
 #include <cal/config.h>
 
@@ -47,4 +47,4 @@ static CAL_FORCEINLINE int cal_gettid() {
 }
 #endif
 
-#endif
+#endif /* CAL_PLATFORM_PROCESS_H */
