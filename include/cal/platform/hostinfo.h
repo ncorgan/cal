@@ -19,21 +19,19 @@ extern "C" {
 #    include <unistd.h>
 #endif
 
-static long cal_gethostid()
-{
-#if defined(CAL_PLATFORM_WIN32) || defined(CAL_PLATFORM_MINGW)
-    // Hopefully it's a safe assumption that a Windows machine has a C:\ drive.
-    char szVolName[MAX_PATH+1], szFileSysName[MAX_PATH+1];
-    DWORD dwSerialNumber, dwMaxComponentLen, dwFileSysFlags;
-    GetVolumeInformation("C:\\", szVolName, MAX_PATH,
-        &dwSerialNumber, &dwMaxComponentLen,
-        &dwFileSysFlags, szFileSysName, sizeof(szFileSysName));
 
-    return (long)dwSerialNumber;
+#if defined(CAL_PLATFORM_WIN32) || defined(CAL_PLATFORM_MINGW)
+
+long cal_gethostid();
+
 #else
+
+static CAL_FORCEINLINE long cal_gethostid()
+{
     return gethostid();
-#endif
 }
+
+#endif
 
 static CAL_INLINE int cal_gethostname(
     char* buffer,

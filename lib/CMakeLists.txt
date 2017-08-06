@@ -12,6 +12,7 @@ INCLUDE_DIRECTORIES(
 
 SET(cal_srcs
     net/ifaddrs.c
+    platform/hostinfo.c
 )
 IF(WIN32)
     SET(cal_libs
