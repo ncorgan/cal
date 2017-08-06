@@ -15,6 +15,7 @@ Current features:
  * Endian-swapping
  * Getting common filesystem paths
  * Getting network interface information
+ * Getting information on the host machine
  * High-frequency timing
  * Text conversion
 
@@ -38,4 +39,4 @@ All source files are analyzed with [CppCheck](http://cppcheck.sourceforge.net/).
 
 Unit tests use the [Unity](https://github.com/ThrowTheSwitch/Unity) framework.
 
-README last updated: 2017/06/24
+README last updated: 2017/08/06
