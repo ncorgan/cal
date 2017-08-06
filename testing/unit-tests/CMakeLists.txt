@@ -34,6 +34,7 @@ SET(cal_tests
     byteswap_test
     dynload_test
     fs_test
+    hostinfo_test
     ifaddrs_test
     process_test
     text_test
