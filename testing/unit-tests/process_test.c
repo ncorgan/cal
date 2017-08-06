@@ -7,7 +7,7 @@
 
 #include "cal_test.h"
 
-#include <cal/process.h>
+#include <cal/platform/process.h>
 
 #include <stdio.h>
 
