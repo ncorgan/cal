@@ -16,6 +16,8 @@
 
 #include <stdio.h>
 
+#include <string.h>
+
 #if defined(CAL_PLATFORM_WIN32) || defined(CAL_PLATFORM_MINGW)
 #include <shlwapi.h>
 #endif
@@ -51,14 +53,17 @@ static void appdata_dir_test() {
 
 static void current_exe_test()
 {
-    char buffer[CAL_BUFFER_LEN] = {0};
+    const char* exe_from_cmake = "@FS_TEST_EXE_PATH@";
+    char exe_from_cal[CAL_BUFFER_LEN] = {0};
 
-    ssize_t errcode = cal_current_exe(
-                         buffer,
-                         sizeof(buffer)-1
-                      );
-    printf("%s\n", buffer);
-    TEST_ASSERT_EQUAL(0, errcode);
+    cal_current_exe(
+        exe_from_cal,
+        sizeof(exe_from_cal)-1
+    );
+    TEST_ASSERT_EQUAL_STRING(
+        exe_from_cmake,
+        exe_from_cal
+    );
 }
 
 static void tmp_dir_test()

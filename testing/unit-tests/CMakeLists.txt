@@ -32,7 +32,6 @@ ENDMACRO()
 SET(cal_tests
     byteswap_test
     dynload_test
-    fs_test
     ifaddrs_test
     process_test
     text_test
@@ -41,4 +40,32 @@ SET(cal_tests
 
 FOREACH(test ${cal_tests})
     CAL_ADD_TEST(${test})
+ENDFOREACH()
+
+MACRO(CAL_ADD_TEST_WITH_CONFIGURE_FILE name)
+    CONFIGURE_FILE(
+        ${CMAKE_CURRENT_SOURCE_DIR}/${name}.c
+        ${CMAKE_CURRENT_BINARY_DIR}/${name}.c
+    @ONLY)
+    SET_SOURCE_FILES_PROPERTIES(${CMAKE_CURRENT_BINARY_DIR}/${name}.c
+        PROPERTIES COMPILE_FLAGS "${CAL_FLAGS}"
+    )
+    ADD_EXECUTABLE(${name} ${CMAKE_CURRENT_BINARY_DIR}/${name}.c)
+    TARGET_LINK_LIBRARIES(${name} cal unity)
+    ADD_TEST(
+        ${name} ${CMAKE_CURRENT_BINARY_DIR}/${name}${exe}
+    )
+ENDMACRO()
+
+SET(cal_tests_with_configure_file
+    fs_test
+)
+
+SET(FS_TEST_EXE_PATH ${CMAKE_CURRENT_BINARY_DIR}/fs_test${exe})
+IF(WIN32)
+    STRING(REPLACE "/" "\\" FS_TEST_EXE_PATH "${FS_TEST_EXE_PATH}")
+ENDIF()
+
+FOREACH(test ${cal_tests_with_configure_file})
+    CAL_ADD_TEST_WITH_CONFIGURE_FILE(${test})
 ENDFOREACH()
