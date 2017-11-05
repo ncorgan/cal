@@ -22,7 +22,7 @@
 extern "C" {
 #endif
 
-static CAL_FORCEINLINE bool cal_does_file_exist(
+static CAL_INLINE bool cal_does_file_exist(
     const char* filepath
 )
 {
@@ -31,12 +31,33 @@ static CAL_FORCEINLINE bool cal_does_file_exist(
         return false;
     }
 
-
 #if defined(CAL_PLATFORM_WIN32) || defined(CAL_PLATFORM_MINGW)
     return PathFileExists(filepath);
 #else
     return (access(filepath, F_OK) != -1);
 #endif
+}
+
+static CAL_INLINE size_t cal_get_filesize(
+    const char* filepath
+)
+{
+    if(!filepath)
+    {
+        return 0;
+    }
+
+    FILE* f = fopen(filepath, "rb");
+    if(!f)
+    {
+        return 0;
+    }
+
+    fseek(f, 0, SEEK_END);
+    size_t ret = ftell(f);
+    fclose(f);
+
+    return ret;
 }
 
 #ifdef __cplusplus

@@ -55,6 +55,13 @@ static void does_file_exist_test()
     TEST_ASSERT_FALSE(cal_does_file_exist(NULL));
 }
 
+static void get_filesize_test()
+{
+    TEST_ASSERT_EQUAL(0, cal_get_filesize("asdf"));
+
+    // TODO: write file in known location, test
+}
+
 static void tmp_dir_test()
 {
     const char* tmp_dir = cal_tmp_dir();
@@ -66,5 +73,6 @@ CAL_TEST_MAIN(
     CAL_TEST(appdata_dir_test)
     CAL_TEST(current_exe_test)
     CAL_TEST(does_file_exist_test)
+    CAL_TEST(get_filesize_test)
     CAL_TEST(tmp_dir_test)
 )
